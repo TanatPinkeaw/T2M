@@ -1,0 +1,7 @@
+node_modules/
+tmp/
+.pglite/
+.env
+.freebuff/
+*.log
+.tools/

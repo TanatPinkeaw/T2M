@@ -1,0 +1,42 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: tube2media
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tube2media}
+      POSTGRES_DB: tube2media
+      TZ: ${TZ:-Asia/Bangkok}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tube2media -d tube2media"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://tube2media:${POSTGRES_PASSWORD:-tube2media}@db:5432/tube2media
+      TMP_DIR: /data/tmp
+      FILE_TTL_MIN: ${FILE_TTL_MIN:-15}
+      PORT: "8080"
+      TZ: ${TZ:-Asia/Bangkok}
+    ports:
+      - "${APP_PORT:-8080}:8080"
+    # ไฟล์ถูกใช้ชั่วคราวแล้วลบทิ้ง — ไม่ต้องมี volume ถาวร
+    # ถ้าอยากให้ไฟล์อยู่ใน RAM ล้วนๆ ใช้ tmpfs แทน volumes (ต้องมี RAM พอ:
+    # คลิป 1 ชม.@1080p ≈ 1-2 GB)
+    volumes:
+      - tmp:/data/tmp
+    # tmpfs:
+    #   - /data/tmp:size=2g
+
+volumes:
+  pgdata:
+  tmp:

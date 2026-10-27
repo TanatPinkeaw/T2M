@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0a0a0b" />
+    <title>T2M · Tube2Media</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Mitr:wght@500;600;700&family=Noto+Sans+Thai:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='6' fill='%230a0a0b'/><text x='32' y='43' text-anchor='middle' font-family='Anton,Impact,sans-serif' font-size='30' fill='%23f3c444'>T2M</text></svg>"
+    />
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="plate">
+          <h1 class="wordmark">
+            <span class="ring" aria-hidden="true">T2M</span>
+            <span class="hairline" aria-hidden="true">T2M</span>
+            <span class="fill">T2M</span>
+          </h1>
+        </div>
+        <p class="chrome">Tube2Media</p>
+        <div class="band">
+          <span class="eyebrow">Homelab · Self-hosted</span>
+          <span class="rule"></span>
+        </div>
+        <p class="sub">แปลงคลิปเป็น MP3 / MP4 แล้วดาวน์โหลดกลับทันที — ไฟล์ไม่ค้างบนเครื่อง</p>
+      </header>
+
+      <form id="form" autocomplete="off">
+        <label class="url">
+          <span>ลิงก์วิดีโอ</span>
+          <input
+            id="url"
+            name="url"
+            type="url"
+            required
+            placeholder="https://www.youtube.com/watch?v=..."
+            spellcheck="false"
+          />
+        </label>
+
+        <div class="controls">
+          <fieldset class="seg">
+            <legend>รูปแบบ</legend>
+            <label><input type="radio" name="format" value="mp3" checked /><span>MP3</span></label>
+            <label><input type="radio" name="format" value="mp4" /><span>MP4</span></label>
+          </fieldset>
+
+          <label class="quality" id="qualityWrap" hidden>
+            <span>ความละเอียด</span>
+            <select id="quality" name="quality">
+              <option value="2160">2160p · 4K</option>
+              <option value="1440">1440p · 2K</option>
+              <option value="1080" selected>1080p</option>
+              <option value="720">720p</option>
+              <option value="480">480p</option>
+              <option value="360">360p</option>
+            </select>
+          </label>
+
+          <button type="submit" id="submit">แปลงไฟล์</button>
+        </div>
+        <p class="hint" id="hint"></p>
+        <p class="note">ไม่มีการเก็บไฟล์บนเซิร์ฟเวอร์ — ดาวน์โหลดเสร็จไฟล์จะถูกลบทันที</p>
+      </form>
+
+      <section class="queue">
+        <div class="queue-head">
+          <h2>คิวงาน</h2>
+          <span id="count" class="badge">0</span>
+        </div>
+        <ul id="list"></ul>
+        <p class="empty" id="empty">ยังไม่มีงาน — วางลิงก์ด้านบนแล้วกด “แปลงไฟล์”</p>
+      </section>
+    </main>
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

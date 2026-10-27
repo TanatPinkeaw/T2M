@@ -1,0 +1,21 @@
+{
+  "name": "tube2media",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Self-hosted YouTube to MP3/MP4 converter with a Postgres job queue",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.2.17"
+  }
+}
